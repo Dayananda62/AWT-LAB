@@ -1,0 +1,33 @@
+<html>
+<head>
+   <title>Implicit & Explicit conversion to string </title>
+</head>
+<body>
+    <h1>Implicit conversion</h1>
+   <script>
+        document.write("100" + 24 + "<br/>");
+        document.write('100' + false + "<br/>");
+        document.write("100" + null+ "<br/>");
+        document.write("100" + undefined+ "<br/>");
+
+        document.write(("100" / 50) + "<br>");
+        document.write(('100' - '50') + "<br>");
+        document.write(('100' * true) + "<br>");
+        document.write(('100' - false) + "<br>");
+        document.write(('tp' / 50) + "<br>");
+   </script>
+   <h1>Explicit Conversion</h1>
+    <script>
+        document.write(typeof String(100) + "<br/>");
+        document.write(typeof String(null)+ "<br/>");
+        document.write(typeof String(true) + "<br/>");	
+
+        document.write(Number("200") + "<br/>");
+        document.write(Number("1000e-2") + "<br/>");
+        document.write(Number(false) + "<br/>");
+        document.write(Number(null) + "<br/>");
+        document.write(Number(undefined) + "<br/>");
+        document.write(+"200" + "<br/>");
+    </script>
+</body>
+</html>

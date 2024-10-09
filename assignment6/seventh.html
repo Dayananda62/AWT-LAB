@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Service Registration</title>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const mobile = document.getElementById('mobile').value;
+            const aadhar = document.getElementById('aadhar').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!name.match(/^[A-Z][a-z]* [A-Z][a-z]* [A-Z][a-z]*$/)) {
+                alert("Please enter a valid name (First Middle Last), starting with capital letters.");
+                return false;
+            }
+
+            if (age < 18 || age > 60) {
+                alert("Age must be between 18 and 60.");
+                return false;
+            }
+
+            if (!mobile.match(/^[6-9]\d{9}$/)) {
+                alert("Please enter a valid Indian mobile number (10 digits starting with 6-9).");
+                return false;
+            }
+
+            if (!aadhar.match(/^\d{12}$/)) {
+                alert("Please enter a valid 12-digit Aadhar number.");
+                return false;
+            }
+
+            if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$/)) {
+                alert("Password must contain at least one letter, one digit, and one special character.");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            alert("Registration successful!");
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Service Registration</h1>
+
+    <form onsubmit="return validateForm()">
+        <label for="name">Full Name (First Middle Last):</label><br>
+        <input type="text" id="name" placeholder="John Doe Smith"><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" min="18" max="60" placeholder="Enter your age"><br><br>
+
+        <label for="mobile">Mobile Number (Indian):</label><br>
+        <input type="text" id="mobile" placeholder="Enter 10-digit mobile number"><br><br>
+
+        <label for="aadhar">Aadhar Number:</label><br>
+        <input type="text" id="aadhar" placeholder="Enter 12-digit Aadhar number"><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" placeholder="Set a password"><br><br>
+
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" id="confirmPassword" placeholder="Re-enter password"><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

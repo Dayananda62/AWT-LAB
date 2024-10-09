@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Table</title>
+    <script>
+        function displayTable() {
+            let result = "Number | Square | Cube\n";
+
+            for (i = 5; i <= 15; i++) {
+                const square = i * i;
+                const cube = i * i * i;
+                result += `${i}             | ${square}         | ${cube}\n`;
+            }
+
+            alert(result);
+        }
+    </script>
+</head>
+<body>
+    <h1>Number Table</h1>
+    <button onclick="displayTable()">Show Table</button>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversed word</title>
+</head>
+<body>
+   <script>
+        word=prompt("Enter number :")
+        letters_array=word.split("")
+        letters_array.sort()
+        sorted_word=letters_array.join("")
+        document.write(`Sorted Letters of ${word} is:  ${sorted_word}`)
+   </script>
+</body>
+</html>

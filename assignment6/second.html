@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessing Elements in Different Ways</title>
+    <style>
+        .example {
+            color: blue;
+        }
+    </style>
+    <script>
+        function accessElements() {
+            const byId = document.getElementById('myElement');
+            byId.textContent = 'Accessed by ID';
+
+            const byClass = document.getElementsByClassName('example')[0];
+            byClass.textContent = 'Accessed by Class Name';
+
+            const byTag = document.getElementsByTagName('p')[1];
+            byTag.textContent = 'Accessed by Tag Name';
+
+            const byQuery = document.querySelector('#queryElement');
+            byQuery.textContent = 'Accessed by querySelector';
+        }
+    </script>
+</head>
+<body>
+    <h1>Accessing Elements Example</h1>
+
+    <p id="myElement">Original Text (ID)</p>
+    <p class="example">Original Text (Class)</p>
+    <p>Original Text (Tag Name)</p>
+    <p id="queryElement">Original Text (querySelector)</p>
+
+    <button onclick="accessElements()">Access Elements</button>
+</body>
+</html>

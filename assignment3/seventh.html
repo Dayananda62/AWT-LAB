@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Menu</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .border-small {
+            border: 1px solid black;
+        }
+
+        .border-medium {
+            border: 5px solid black;
+        }
+
+        .border-large {
+            border: 10px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Today's Menu</h1>
+    <div id="menu"></div>
+
+    <script>
+        function displayMenu() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            let borderClass = '';
+            let menuHTML = '';
+
+            switch (dayOfWeek) {
+                case 0:
+                    borderClass = 'border-medium';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Poha</td><td>Paneer Tikka</td><td>Chole Bhature</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 1:
+                    borderClass = 'border-small';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Idli Sambar</td><td>Rajma Chawal</td><td>Aloo Gobi</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 2:
+                    borderClass = 'border-medium';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Paratha with Curd</td><td>Dal Tadka</td><td>Vegetable Biryani</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 3:
+                    borderClass = 'border-large';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Upma</td><td>Chole Pulao</td><td>Baingan Bharta</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 4:
+                    borderClass = 'border-small';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Masala Dosa</td><td>Vegetable Korma</td><td>Veg Hakka Noodles</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 5:
+                    borderClass = 'border-medium';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Chilla</td><td>Khichdi</td><td>Palak Paneer</td></tr>
+                        </table>
+                    `;
+                    break;
+                case 6:
+                    borderClass = 'border-large';
+                    menuHTML = ` 
+                        <table class="${borderClass}">
+                            <tr><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>
+                            <tr><td>Chole Kulche</td><td>Dal Makhani</td><td>Vegetable Pulao</td></tr>
+                        </table>
+                    `;
+                    break;
+                default:
+                    menuHTML = `<p>Error: Unable to determine the day.</p>`;
+            }
+
+            document.getElementById('menu').innerHTML = menuHTML;
+        }
+
+        displayMenu();
+    </script>
+</body>
+
+</html>

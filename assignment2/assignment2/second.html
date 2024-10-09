@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selector Examples</title>
+    <style>
+        body{
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+           
+        }
+
+        p {
+            color: blue;  
+        }
+
+        .class1 {
+            background-color: yellow;
+            color: red;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        #id1 {
+            border: 2px solid red;
+            padding: 10px;
+        }
+ 
+        a:hover {
+            color: rgb(241, 77, 216);
+            font-style: italic;    
+        }
+
+    </style>
+</head>
+<body>
+    <h1>CSS Selector Examples</h1>
+    
+    <p>This is a paragraph with the default blue color</p>
+    <h5>Class Selector</h5>
+    <p class="class1">This paragraph has a yellow background and bold text due to the class selector.</p>
+    <h5>ID Selector</h5>
+    <p id="id1">This paragraph has a red border and padding, styled by the ID selector.</p>
+    <h5>Link Selector</h5>
+    
+    <a href="https://www.google.com">Link to Google</a>
+    <br/>
+    <a href="https://www.youtube.com">Link to Youtube</a>
+    
+    <h5>Hover over the link above to see the hover effect in action.</h5>
+    
+</body>
+</html>

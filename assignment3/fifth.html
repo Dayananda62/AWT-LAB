@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equality Operators in JavaScript</title>
+</head>
+<body>
+    <h1>Equality Operators in JavaScript</h1>
+    
+    <script>
+        // Example values
+        var num = 5;
+        var str = '5';
+        var boolTrue = true;
+        var boolFalse = false;
+        var obj = { key: 'value' };
+        var arr = [1, 2, 3];
+
+        // Strict Equality (===) Examples
+        var s_equal = (num === str); // false, because number and string are different types
+        var strictEqual2 = (boolTrue === 1); // false, because boolean and number are different types
+        var strictEqual3 = (obj === arr); // false, because they are different types (object vs array)
+
+        // Loose Equality (==) Examples
+        var looseEqual1 = (num == str); // true, because '5' is coerced to number 5
+        var looseEqual2 = (boolTrue == 1); // true, because true is coerced to number 1
+        var looseEqual3 = (obj == arr); // false, because objects and arrays are not considered equal
+
+        // Output results using document.write()
+        document.write('<h2>Strict Equality (===):</h2>');
+        document.write('<p>num === str: ' + s_equal + '</p>');
+        document.write('<p>boolTrue === 1: ' + strictEqual2 + '</p>');
+        document.write('<p>obj === arr: ' + strictEqual3 + '</p>');
+        
+        document.write('<h2>Loose Equality (==):</h2>');
+        document.write('<p>num == str: ' + looseEqual1 + '</p>');
+        document.write('<p>boolTrue == 1: ' + looseEqual2 + '</p>');
+        document.write('<p>obj == arr: ' + looseEqual3 + '</p>');
+    </script>
+</body>
+</html>

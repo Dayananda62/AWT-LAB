@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Color Selector with DOM2 Event Model</title>
+    <script>
+        function chosenColor(event) {
+            const color = event.target.value; 
+            document.getElementById('result').textContent = 'Your favorite color is ' + color + '!';
+        }
+
+        window.onload = function() {
+            const radioButtons = document.getElementsByName('color'); 
+            for (let i = 0; i < radioButtons.length; i++) {
+                radioButtons[i].addEventListener('click', chosenColor); 
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Select Your Favorite Color</h1>
+
+    <input type="radio" name="color" value="Red"> Red<br>
+    <input type="radio" name="color" value="Blue"> Blue<br>
+    <input type="radio" name="color" value="Green"> Green<br>
+    <input type="radio" name="color" value="Yellow"> Yellow<br>
+    <input type="radio" name="color" value="Orange"> Orange<br>
+
+    <p id="result">No color selected yet.</p>
+</body>
+</html>

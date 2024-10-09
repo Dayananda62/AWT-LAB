@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quadratic Equation Solver</title>
+</head>
+<body>
+    <h1>Quadratic Equation Solver</h1>
+    
+    <p>Click the button to enter the coefficients for the quadratic equation ax² + bx + c = 0</p>
+    
+    <button onclick="calculateRoots()">Calculate Roots</button>
+    
+    <div id="output"></div>
+    
+    <script>
+        function calculateRoots() {
+            var a = parseFloat(prompt('Enter coefficient a:'));
+            var b = parseFloat(prompt('Enter coefficient b:'));
+            var c = parseFloat(prompt('Enter coefficient c:'));
+            
+            var discriminant = b * b - 4 * a * c;
+            var root1, root2;
+            var output = '';
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                output = '<p>Please enter valid numbers for all coefficients.</p>';
+            } else if (a === 0) {
+                output = '<p>Coefficient "a" cannot be zero.</p>';
+            } else {
+                if (discriminant > 0) {
+                    root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                    root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                    output = `<p>Roots are real and distinct:</p>`;
+                    output += `<p>Root 1: ${root1}</p>`;
+                    output += `<p>Root 2: ${root2}</p>`;
+                } else if (discriminant === 0) {
+                    root1 = -b / (2 * a);
+                    root2 = root1;  // Root 2 is the same as Root 1 when the discriminant is 0
+                    output = `<p>Roots are real and equal:</p>`;
+                    output += `<p>Root 1: ${root1}</p>`;
+                    output += `<p>Root 2: ${root2}</p>`;
+                } else {
+                    output = `<p>Roots are complex and cannot be computed with this script.</p>`;
+                }
+            }
+
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Items Checkbox</title>
+    <script>
+        function countCheckedItems() {
+            const checkboxes = document.getElementsByName('grocery');
+            
+            let count = 0;
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    count++;
+                }
+            }
+
+            document.getElementById('count').textContent = count + ' items checked';
+        }
+    </script>
+</head>
+<body>
+    <h1>Grocery List</h1>
+
+    <input type="checkbox" name="grocery" value="Rice"> Rice<br>
+    <input type="checkbox" name="grocery" value="Sugar"> Sugar<br>
+    <input type="checkbox" name="grocery" value="Wheat"> Wheat<br>
+    <input type="checkbox" name="grocery" value="Salt"> Salt<br>
+    <input type="checkbox" name="grocery" value="Spices"> Spices<br>
+
+    <button onclick="countCheckedItems()">Count Checked Items</button>
+
+    <p id="count">0 items checked</p>
+</body>
+</html>

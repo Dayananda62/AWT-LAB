@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Pattern Methods</title>
+    <script>
+        function runPatternMethods() {
+            const text = "dayananda is learning JavaScript";
+
+            const execResult = /daya/.exec(text);
+            document.getElementById('execResult').textContent = execResult;
+
+            const testResult = /learn/.test(text);
+            document.getElementById('testResult').textContent = testResult;
+
+            const matchResult = text.match(/JavaScript/);
+            document.getElementById('matchResult').textContent = matchResult;
+
+            const replaceResult = text.replace(/dayananda/, 'Pujith');
+            document.getElementById('replaceResult').textContent = replaceResult;
+        }
+    </script>
+</head>
+<body>
+    <h1>Pattern Methods</h1>
+
+    <button onclick="runPatternMethods()">Run Pattern Methods</button>
+
+    <p>Result of exec(): <span id="execResult"></span></p>
+    <p>Result of test(): <span id="testResult"></span></p>
+    <p>Result of match(): <span id="matchResult"></span></p>
+    <p>Result of replace(): <span id="replaceResult"></span></p>
+</body>
+</html>

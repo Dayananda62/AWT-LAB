@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Numbers</title>
+</head>
+<body>
+    <script>
+        function sortNumbers(arr, order) {
+            switch (order.toLowerCase()) {
+                case 'ascending':
+                    arr.sort((a, b) => a - b);
+                    break;
+                case 'descending':
+                    arr.sort((a, b) => b - a);
+                    break;
+                default:
+                    alert("Invalid sorting order");
+            }
+            return arr;
+        }
+
+        const userInput = prompt("Enter numbers separated by commas:");
+        const numbersArray = userInput.split(',').map(num => parseFloat(num.trim())); 
+
+        const order = prompt("Enter sorting order (ascending or descending):");
+        
+        const sortedArray = sortNumbers(numbersArray, order);
+
+        if (sortedArray) {
+            document.write(`Sorted numbers in ${order}: ${sortedArray.join(', ')}`);
+        }
+    </script>
+</body>
+</html>

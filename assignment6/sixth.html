@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computation Page</title>
+    <script>
+        window.onload = function() {
+            alert('Welcome to the Computation page');
+        }
+
+        function computeResult() {
+            const num1 = document.getElementById('number1').value;
+            const num2 = document.getElementById('number2').value;
+            const operation = document.getElementById('operation').value;
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                alert("Please enter valid numbers.");
+                return;
+            }
+
+           
+            let result;
+            const number1 = parseFloat(num1);
+            const number2 = parseFloat(num2);
+
+            switch (operation) {
+                case '+':
+                    result = number1 + number2;
+                    break;
+                case '-':
+                    result = number1 - number2;
+                    break;
+                case '*':
+                    result = number1 * number2;
+                    break;
+                case '/':
+                    result = number2 !== 0 ? number1 / number2 : "Cannot divide by zero";
+                    break;
+                case '%':
+                    result = number2 !== 0 ? number1 % number2 : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+
+            document.getElementById('result').value = result;
+        }
+    </script>
+</head>
+<body>
+    <h1>Computation Page</h1>
+
+    <label>Number 1:</label>
+    <input type="text" id="number1" placeholder="Enter first number"><br><br>
+
+    <label>Number 2:</label>
+    <input type="text" id="number2" placeholder="Enter second number"><br><br>
+
+    <label>Operation (+, -, *, /, %):</label>
+    <input type="text" id="operation" placeholder="Enter operation"><br><br>
+
+    <button onclick="computeResult()">Compute</button><br><br>
+
+    <label>Result:</label>
+    <input type="text" id="result" readonly><br><br>
+
+</body>
+</html>

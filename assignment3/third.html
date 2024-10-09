@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Methods Demo</title>
+</head>
+<body>
+    <script>
+        // Initialize a new Date object
+        var today = new Date();
+        
+        // Display initial date and time
+        document.write("<h2>Original Date and Time:</h2>");
+        var day = today.getDate();
+        var month = today.getMonth() + 1; // Months are 0-based
+        var year = today.getFullYear();
+        document.write("<br>Original Date is: " + day + "/" + month + "/" + year);
+        
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        document.write("<br>Original Time is: " + h + ":" + m + ":" + s);
+
+        // Apply setDate
+        today.setDate(15);
+        document.write("<br><h2>After setDate(15):</h2>");
+        document.write("<br>Date is: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear());
+
+        // Apply setFullYear
+        today.setFullYear(2025, 11, 25); // December 25, 2025
+        document.write("<br><h2>After setFullYear(2025, 11, 25):</h2>");
+        document.write("<br>Date is: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear());
+
+        // Apply setHours
+        today.setHours(12);
+        document.write("<br><h2>After setHours(12):</h2>");
+        document.write("<br>Time is: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+
+        // Apply setMilliseconds
+        today.setMilliseconds(500);
+        document.write("<br><h2>After setMilliseconds(500):</h2>");
+        document.write("<br>Time is: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + "." + today.getMilliseconds());
+
+        // Apply setMinutes
+        today.setMinutes(45);
+        document.write("<br><h2>After setMinutes(45):</h2>");
+        document.write("<br>Time is: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+
+        // Apply setMonth
+        today.setMonth(6); // July
+        document.write("<br><h2>After setMonth(6):</h2>");
+        document.write("<br>Date is: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear());
+
+        // Apply setSeconds
+        today.setSeconds(30);
+        document.write("<br><h2>After setSeconds(30):</h2>");
+        document.write("<br>Time is: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+
+        // Apply setTime
+        today.setTime(1672531200000); // Example timestamp
+        document.write("<br><h2>After setTime(1672531200000):</h2>");
+        document.write("<br>Date is: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear());
+        document.write("<br>Time is: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+
+    </script>
+</body>
+</html>

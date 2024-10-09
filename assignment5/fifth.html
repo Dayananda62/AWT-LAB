@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Filter</title>
+</head>
+<body>
+    <script>
+        function countName(names) {
+            let count = 0;
+
+            for (let name of names) {
+                if (name.endsWith('ie') || name.endsWith('y')) {
+                    count++;
+                }
+            }
+            return count; 
+        }
+
+        const userInput = prompt("Enter names separated by commas:");
+        
+        const namesArray = userInput.split(',');
+
+        const result = countName(namesArray);
+        document.write(`Number of names ending with 'ie' or 'y': ${result}`);
+    </script>
+</body>
+</html>

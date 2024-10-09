@@ -1,0 +1,146 @@
+import os
+import librosa
+import numpy as np
+import cv2
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization, Input
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from tensorflow.keras.optimizers import Adam
+from sklearn.model_selection import train_test_split
+
+# Step 1: Function to convert audio files to Mel-spectrogram
+def audio_to_spectrogram(file_path):
+    try:
+        audio, sample_rate = librosa.load(file_path, sr=None)
+        mel_spec = librosa.feature.melspectrogram(y=audio, sr=sample_rate)
+        mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
+        return mel_spec_db
+    except Exception as e:
+        print(f"Error processing {file_path}: {e}")
+        return None
+
+# Step 2: Apply Data Augmentation (Time Stretching and Pitch Shifting)
+def augment_audio(file_path):
+    try:
+        audio, sample_rate = librosa.load(file_path, sr=None)
+
+        # Time Stretching (Stretch the signal)
+        stretched_audio = librosa.effects.time_stretch(audio, rate=0.8)  # Slower
+        stretched_spec = librosa.feature.melspectrogram(y=stretched_audio, sr=sample_rate)
+
+        # Pitch Shifting (Shift pitch by 3 half-steps)
+        pitch_shifted_audio = librosa.effects.pitch_shift(audio, sr=sample_rate, n_steps=3)
+        pitch_shifted_spec = librosa.feature.melspectrogram(y=pitch_shifted_audio, sr=sample_rate)
+
+        return [librosa.power_to_db(stretched_spec, ref=np.max), librosa.power_to_db(pitch_shifted_spec, ref=np.max)]
+    except Exception as e:
+        print(f"Error augmenting {file_path}: {e}")
+        return []
+
+# Step 3: Function to resize spectrograms
+def resize_spectrogram(spectrogram, target_size=(128, 128)):
+    resized = cv2.resize(spectrogram, target_size, interpolation=cv2.INTER_AREA)
+    return resized
+
+# Step 4: Set paths to audio files in Google Drive
+# Step 4: Set paths to audio files in Google Drive
+data_paths = [
+    '/content/drive/MyDrive/miniproject/birds/grebe',
+    '/content/drive/MyDrive/miniproject/birds/palm'
+]
+
+
+spectrograms = []
+labels = []
+
+# Step 5: Preprocess all audio files from both crow and peacock directories
+for label, data_path in enumerate(data_paths):  # label=0 for crow, label=1 for peacock
+    try:
+        audio_files = [f for f in os.listdir(data_path) if f.endswith('.wav')]
+
+        if len(audio_files) == 0:
+            print(f"No audio files found in the specified directory: {data_path}")
+            continue
+
+        for file in audio_files:
+            file_path = os.path.join(data_path, file)
+            mel_spectrogram = audio_to_spectrogram(file_path)
+
+            if mel_spectrogram is not None:
+                resized_spectrogram = resize_spectrogram(mel_spectrogram)
+                spectrograms.append(resized_spectrogram)
+                labels.append(label)
+
+                # Add augmented data (time-stretched and pitch-shifted)
+                augmented_spectrograms = augment_audio(file_path)
+                for aug_spec in augmented_spectrograms:
+                    resized_aug_spectrogram = resize_spectrogram(aug_spec)
+                    spectrograms.append(resized_aug_spectrogram)
+                    labels.append(label)  # Same label for augmented data
+    except Exception as e:
+        print(f"Error processing files in {data_path}: {e}")
+
+# Step 6: Normalize and prepare spectrograms
+spectrograms = np.array(spectrograms)
+if len(spectrograms) == 0:
+    raise ValueError("No spectrograms were generated. Check audio processing steps.")
+
+# Normalize spectrograms
+spectrograms = (spectrograms - np.mean(spectrograms)) / np.std(spectrograms)
+
+# Reshape spectrograms to fit into the CNN (add channel dimension for grayscale)
+spectrograms = np.expand_dims(spectrograms, axis=-1)
+input_shape = spectrograms[0].shape
+
+# Step 7: Split data into training (70%) and testing (30%)
+X_train, X_test, y_train, y_test = train_test_split(spectrograms, labels, test_size=0.3, random_state=42)
+
+# Step 8: Define a CNN model
+model = Sequential([
+    Input(shape=input_shape),
+    Conv2D(16, (3, 3), activation='relu'),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+
+    Conv2D(32, (3, 3), activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01)),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+
+    Conv2D(64, (3, 3), activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01)),
+    BatchNormalization(),
+    MaxPooling2D((2, 2)),
+
+    Flatten(),
+    Dense(32, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01)),
+    Dropout(0.5),
+
+    Dense(2, activation='softmax')  # Two output classes: crow and peacock
+])
+
+# Step 9: Compile the model
+optimizer = Adam(learning_rate=0.0001)
+model.compile(optimizer=optimizer, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# Step 10: Add EarlyStopping to prevent overfitting
+early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-6, verbose=1)
+
+# Step 11: Convert labels to numpy array
+y_train, y_test = np.array(y_train), np.array(y_test)
+
+# Step 12: Train the model
+history = model.fit(
+    X_train, y_train,
+    epochs=90,
+    validation_data=(X_test, y_test),
+    batch_size=16,
+    callbacks=[early_stopping, reduce_lr]
+)
+
+# Step 13: Save the trained model
+model.save('/content/drive/MyDrive/miniproject/bird_species_classifier.keras')
+
+# Step 14: Evaluate the model
+test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
+print(f'Test Accuracy: {test_acc}, Test Loss: {test_loss}')
